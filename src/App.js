@@ -1,9 +1,22 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 const App = props => {
   const [state, setState] = useState(props)
 
   const { name, price } = state
+
+
+  useEffect(() => {
+    console.log('anytime called')
+  })
+
+  useEffect(() => {
+    console.log('like a componentDidMount()')
+  }, [])
+
+  useEffect(() => {
+    console.log('name was changed!')
+  }, [name])
 
   return (
     <>
