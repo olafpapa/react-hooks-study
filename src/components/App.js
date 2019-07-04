@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import reducer from '../reducers'
 import Event from './Event'
 
-const App = props => {
+const App = () => {
 
   const [state, dispatch] = useReducer(reducer, [])
   const [title, setTitle] = useState('')
@@ -18,6 +18,14 @@ const App = props => {
     })
     setTitle('')
     setBody('')
+  }
+
+  const deleteAllEvents = e => {
+    e.preventDefault()
+    const result = window.confirm('すべてのイベントを削除しますか？')
+    if (result) {
+      dispatch({type: 'DELETE_ALL_EVENTS'})
+    }
   }
 
   return (
@@ -35,8 +43,8 @@ const App = props => {
           <textarea type="text" className="form-control" id="formEventBody" value={ body }
                     onChange={ e => setBody(e.target.value) } placeholder="ボディを入力してください"/>
         </div>
-        <button type="submit" className="btn btn-primary" onClick={ addEvent }>イベント作成する</button>
-        <button type="submit" className="btn btn-danger ml-2">全てのイベントを削除する</button>
+        <button type="submit" className="btn btn-primary" disabled={!title || !body} onClick={ addEvent }>イベント作成する</button>
+        <button type="submit" className="btn btn-danger ml-2" disabled={state.length === 0} onClick={ deleteAllEvents }>全てのイベントを削除する</button>
       </form>
 
       <h4 className="mt-5">イベント一覧</h4>
@@ -46,7 +54,7 @@ const App = props => {
           <th scope="col">#</th>
           <th scope="col">タイトル</th>
           <th scope="col">ボディ</th>
-          <th></th>
+          <th/>
         </tr>
         </thead>
         <tbody>
