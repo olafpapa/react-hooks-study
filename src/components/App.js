@@ -1,6 +1,7 @@
 import React, { useReducer, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import reducer from '../reducers'
+import Event from './Event'
 
 const App = props => {
 
@@ -19,7 +20,6 @@ const App = props => {
     setBody('')
   }
 
-  console.log({state})
   return (
     <div className="container-fluid">
       <h4 className="mt-3">イベント作成フォーム</h4>
@@ -46,15 +46,14 @@ const App = props => {
           <th scope="col">#</th>
           <th scope="col">タイトル</th>
           <th scope="col">ボディ</th>
+          <th></th>
         </tr>
         </thead>
         <tbody>
-
+        { state.map((event, index) => (<Event key={ index } event={ event } dispatch={ dispatch }/>)) }
         </tbody>
       </table>
     </div>
   )
 }
-
-
 export default App
