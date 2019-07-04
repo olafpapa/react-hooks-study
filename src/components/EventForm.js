@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { CREATE_EVENT, DELETE_ALL_EVENTS } from '../actions'
+import AppContext from '../contexts/AppContext'
 
-const EventForm = ({ state, dispatch }) => {
+const EventForm = () => {
+  const { state, dispatch } = useContext(AppContext)
   const [title, setTitle] = useState('')
   const [body, setBody] = useState('')
 
@@ -36,7 +38,7 @@ const EventForm = ({ state, dispatch }) => {
         </div>
         <div className="form-group">
           <label htmlFor="formEventBody">ボディ</label>
-          <textarea type="text" className="form-control" id="formEventBody" value={ body }
+          <textarea className="form-control" id="formEventBody" value={ body }
                     onChange={ e => setBody(e.target.value) } placeholder="ボディを入力してください"/>
         </div>
         <button type="submit" className="btn btn-primary" disabled={ !title || !body } onClick={ addEvent }>イベント作成する
