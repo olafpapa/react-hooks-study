@@ -1,22 +1,41 @@
-import React, { useState, useEffect } from 'react'
+import React, { useReducer, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import reducer from '../reducers'
 
 const App = props => {
 
+  const [state, dispatch] = useReducer(reducer, [])
+  const [title, setTitle] = useState('')
+  const [body, setBody] = useState('')
+
+  const addEvent = e => {
+    e.preventDefault()
+    dispatch({
+      type: 'CREATE_EVENT',
+      title,
+      body,
+    })
+    setTitle('')
+    setBody('')
+  }
+
+  console.log({state})
   return (
     <div className="container-fluid">
       <h4 className="mt-3">イベント作成フォーム</h4>
       <form>
         <div className="form-group">
           <label htmlFor="formEventTitle">タイトル</label>
-          <input type="text" className="form-control" id="formEventTitle" aria-describedby="emailHelp"
+          <input type="text" className="form-control" id="formEventTitle" value={ title }
+                 onChange={ e => setTitle(e.target.value) } aria-describedby="emailHelp"
                  placeholder="タイトルを入力してください"/>
         </div>
         <div className="form-group">
           <label htmlFor="formEventBody">ボディ</label>
-          <textarea type="text" className="form-control" id="formEventBody" placeholder="ボディを入力してください"/>
+          <textarea type="text" className="form-control" id="formEventBody" value={ body }
+                    onChange={ e => setBody(e.target.value) } placeholder="ボディを入力してください"/>
         </div>
-        <button type="submit" className="btn btn-primary">イベント作成する</button>
+        <button type="submit" className="btn btn-primary" onClick={ addEvent }>イベント作成する</button>
         <button type="submit" className="btn btn-danger ml-2">全てのイベントを削除する</button>
       </form>
 
