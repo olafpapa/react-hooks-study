@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import reducer from '../reducers'
 import EventForm from './EventForm'
 import EventList from './EventList'
+import OperationLogs from './OperationLogs'
 import AppContext from '../contexts/AppContext'
 
 const App = () => {
@@ -17,6 +18,7 @@ const App = () => {
       <div className="container-fluid">
         <EventForm/>
         <EventList/>
+        <OperationLogs />
       </div>
     </AppContext.Provider>
 
